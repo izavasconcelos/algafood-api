@@ -1,2 +1,0 @@
-com/algafood/AlgafoodApplication.java
- com.algafood.AlgafoodApplication
