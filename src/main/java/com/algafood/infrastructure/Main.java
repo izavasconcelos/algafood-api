@@ -1,7 +1,8 @@
-package com.algafood.infra.jpa;
+package com.algafood.infrastructure;
 
 import com.algafood.AlgafoodApplication;
 import com.algafood.domain.entity.Cozinha;
+import com.algafood.domain.repository.CozinhaRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -15,18 +16,18 @@ public class Main {
             .web(WebApplicationType.NONE)
             .run(args);
 
-    CRUDCozinha crudCozinha = context.getBean(CRUDCozinha.class);
-    List<Cozinha> cozinhaList = crudCozinha.listar();
+    CozinhaRepository repository = context.getBean(CozinhaRepository.class);
+    List<Cozinha> cozinhaList = repository.findAll();
     cozinhaList.forEach(System.out::println);
 
     Cozinha createCozinha = new Cozinha();
     createCozinha.setNome("Brasil");
 
-    Cozinha cozinhaAdd = crudCozinha.salvar(createCozinha);
+    Cozinha cozinhaAdd = repository.save(createCozinha);
     System.out.println(cozinhaAdd);
 
-    System.out.println("\n**"+ crudCozinha.getById(1L));
+    System.out.println("\n**"+ repository.getById(1L));
 
-    crudCozinha.deletar(cozinhaAdd);
+    repository.delete(cozinhaAdd);
   }
 }
