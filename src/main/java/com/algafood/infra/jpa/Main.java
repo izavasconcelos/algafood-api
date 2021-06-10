@@ -1,7 +1,7 @@
 package com.algafood.infra.jpa;
 
 import com.algafood.AlgafoodApplication;
-import com.algafood.domain.model.Cozinha;
+import com.algafood.domain.entity.Cozinha;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;

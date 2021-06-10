@@ -1,6 +1,6 @@
 package com.algafood.infra.jpa;
 
-import com.algafood.domain.model.Cozinha;
+import com.algafood.domain.entity.Cozinha;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
