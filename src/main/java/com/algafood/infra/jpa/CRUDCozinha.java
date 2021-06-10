@@ -28,4 +28,10 @@ public class CRUDCozinha {
     public Cozinha getById(Long id) {
         return entityManager.find(Cozinha.class, id);
     }
+
+    @Transactional
+    public void deletar(Cozinha cozinha) {
+        cozinha = getById(cozinha.getId());
+        entityManager.remove(cozinha);
+    }
 }

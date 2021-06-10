@@ -21,11 +21,12 @@ public class Main {
 
     Cozinha createCozinha = new Cozinha();
     createCozinha.setNome("Brasil");
-    createCozinha.setId(1L);
 
     Cozinha cozinhaAdd = crudCozinha.salvar(createCozinha);
     System.out.println(cozinhaAdd);
 
     System.out.println("\n**"+ crudCozinha.getById(1L));
+
+    crudCozinha.deletar(cozinhaAdd);
   }
 }
