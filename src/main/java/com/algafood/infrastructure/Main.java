@@ -21,18 +21,19 @@ public class Main {
 
     CozinhaRepository repository = context.getBean(CozinhaRepository.class);
     RestauranteRepository restauranteRepository = context.getBean(RestauranteRepository.class);
-    List<Cozinha> cozinhaList = repository.findAll();
-    cozinhaList.forEach(System.out::println);
-
+//    List<Cozinha> cozinhaList = repository.findAll();
+//    cozinhaList.forEach(System.out::println);
+//
     Cozinha createCozinha = new Cozinha();
     createCozinha.setNome("Brasil");
-
+    createCozinha.setId(3L);
+//
     Cozinha cozinhaAdd = repository.save(createCozinha);
-    System.out.println(cozinhaAdd);
-
-    System.out.println("\n**"+ repository.getById(1L));
-
-    repository.delete(cozinhaAdd);
+//    System.out.println(cozinhaAdd);
+//
+//    System.out.println("\n**"+ repository.getById(1L));
+//
+//    repository.delete(cozinhaAdd);
 
     // *****************************************
 
@@ -42,6 +43,7 @@ public class Main {
     Restaurante restaurante = new Restaurante();
     restaurante.setNome("Brasil");
     restaurante.setTaxaFrete(BigDecimal.valueOf(2.50));
+    restaurante.setCozinha(createCozinha);
 
     Restaurante restauranteAdd = restauranteRepository.save(restaurante);
     System.out.println(restauranteAdd);
