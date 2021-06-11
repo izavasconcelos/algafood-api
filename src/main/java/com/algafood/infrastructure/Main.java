@@ -1,15 +1,14 @@
 package com.algafood.infrastructure;
 
 import com.algafood.AlgafoodApplication;
-import com.algafood.domain.entity.Cozinha;
-import com.algafood.domain.entity.Restaurante;
+import com.algafood.domain.entity.Estado;
 import com.algafood.domain.repository.CozinhaRepository;
+import com.algafood.domain.repository.EstadoRepository;
 import com.algafood.domain.repository.RestauranteRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class Main {
@@ -21,34 +20,19 @@ public class Main {
 
     CozinhaRepository repository = context.getBean(CozinhaRepository.class);
     RestauranteRepository restauranteRepository = context.getBean(RestauranteRepository.class);
-//    List<Cozinha> cozinhaList = repository.findAll();
-//    cozinhaList.forEach(System.out::println);
-//
-    Cozinha createCozinha = new Cozinha();
-    createCozinha.setNome("Brasil");
-    createCozinha.setId(3L);
-//
-    Cozinha cozinhaAdd = repository.save(createCozinha);
-//    System.out.println(cozinhaAdd);
-//
-//    System.out.println("\n**"+ repository.getById(1L));
-//
-//    repository.delete(cozinhaAdd);
+    EstadoRepository estadoRepository = context.getBean(EstadoRepository.class);
 
-    // *****************************************
-
-    List<Restaurante> restauranteList = restauranteRepository.findAll();
+    List<Estado> restauranteList = estadoRepository.findAll();
     restauranteList.forEach(System.out::println);
 
-    Restaurante restaurante = new Restaurante();
-    restaurante.setNome("Brasil");
-    restaurante.setTaxaFrete(BigDecimal.valueOf(2.50));
-    restaurante.setCozinha(createCozinha);
+    Estado estado = new Estado();
+    estado.setNome("RS");
 
-    Restaurante restauranteAdd = restauranteRepository.save(restaurante);
-    System.out.println(restauranteAdd);
 
-    System.out.println("\n**"+ restauranteRepository.getById(1L));
+    Estado estado1 = estadoRepository.save(estado);
+    System.out.println(estado1);
+
+    System.out.println("\n**"+ estadoRepository.getById(1L));
 
     //restauranteRepository.delete(restauranteAdd);
   }
