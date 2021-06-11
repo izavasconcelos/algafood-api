@@ -3,10 +3,8 @@ package com.algafood.infrastructure;
 import com.algafood.AlgafoodApplication;
 import com.algafood.domain.entity.Cidade;
 import com.algafood.domain.entity.Estado;
-import com.algafood.domain.repository.CidadeRepository;
-import com.algafood.domain.repository.CozinhaRepository;
-import com.algafood.domain.repository.EstadoRepository;
-import com.algafood.domain.repository.RestauranteRepository;
+import com.algafood.domain.entity.FormaPagamento;
+import com.algafood.domain.repository.*;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +22,8 @@ public class Main {
     RestauranteRepository restauranteRepository = context.getBean(RestauranteRepository.class);
     EstadoRepository estadoRepository = context.getBean(EstadoRepository.class);
     CidadeRepository cidadeRepository = context.getBean(CidadeRepository.class);
+    FormaPagamentoRepository formaPagamentoRepository = context.getBean(FormaPagamentoRepository.class);
+
 
     List<Estado> restauranteList = estadoRepository.findAll();
     restauranteList.forEach(System.out::println);
@@ -42,6 +42,15 @@ public class Main {
     Cidade cidade1 = cidadeRepository.save(cidade);
     System.out.println(cidade1);
     System.out.println("\n**"+ cidadeRepository.getById(1L));
+
+    List<FormaPagamento> formaPagamentoList = formaPagamentoRepository.findAll();
+    formaPagamentoList.forEach(System.out::println);
+    FormaPagamento formaPagamento = new FormaPagamento();
+    formaPagamento.setNome("Visa");
+    formaPagamento.setRestaurante(restauranteRepository.getById(1L));
+    FormaPagamento formaPagamento1 = formaPagamentoRepository.save(formaPagamento);
+    System.out.println(formaPagamento1);
+    System.out.println("\n**"+ formaPagamentoRepository.getById(1L));
 
   }
 }
