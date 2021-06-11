@@ -4,6 +4,7 @@ import com.algafood.AlgafoodApplication;
 import com.algafood.domain.entity.Cidade;
 import com.algafood.domain.entity.Estado;
 import com.algafood.domain.entity.FormaPagamento;
+import com.algafood.domain.entity.Permissao;
 import com.algafood.domain.repository.*;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -23,6 +24,7 @@ public class Main {
     EstadoRepository estadoRepository = context.getBean(EstadoRepository.class);
     CidadeRepository cidadeRepository = context.getBean(CidadeRepository.class);
     FormaPagamentoRepository formaPagamentoRepository = context.getBean(FormaPagamentoRepository.class);
+    PermissaoRepository permissaoRepository = context.getBean(PermissaoRepository.class);
 
 
     List<Estado> restauranteList = estadoRepository.findAll();
@@ -46,11 +48,20 @@ public class Main {
     List<FormaPagamento> formaPagamentoList = formaPagamentoRepository.findAll();
     formaPagamentoList.forEach(System.out::println);
     FormaPagamento formaPagamento = new FormaPagamento();
-    formaPagamento.setNome("Visa");
+    formaPagamento.setDescricao("Visa");
     formaPagamento.setRestaurante(restauranteRepository.getById(1L));
     FormaPagamento formaPagamento1 = formaPagamentoRepository.save(formaPagamento);
     System.out.println(formaPagamento1);
     System.out.println("\n**"+ formaPagamentoRepository.getById(1L));
+
+    List<Permissao> permissaoList = permissaoRepository.findAll();
+    permissaoList.forEach(System.out::println);
+    Permissao permissao = new Permissao();
+    permissao.setDescricao("Liberado");
+    permissao.setNome("Alvara IX");
+    Permissao permissao1 = permissaoRepository.save(permissao);
+    System.out.println(permissao1);
+    System.out.println("\n**"+ permissaoRepository.getById(1L));
 
   }
 }

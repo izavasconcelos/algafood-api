@@ -16,7 +16,7 @@ public class FormaPagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String nome;
+    private String descricao;
 
     @ManyToOne
     @JoinColumn(nullable = false)
