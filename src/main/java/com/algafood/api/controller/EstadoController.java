@@ -4,6 +4,7 @@ import com.algafood.domain.entity.Estado;
 import com.algafood.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +20,10 @@ public class EstadoController {
     @GetMapping
     public List<Estado> findAll() {
         return estadoRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Estado findById(@PathVariable Long id) {
+        return estadoRepository.getById(id);
     }
 }
