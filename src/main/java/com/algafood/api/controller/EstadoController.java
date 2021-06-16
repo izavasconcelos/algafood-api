@@ -3,10 +3,9 @@ package com.algafood.api.controller;
 import com.algafood.domain.entity.Estado;
 import com.algafood.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,12 +17,17 @@ public class EstadoController {
     private EstadoRepository estadoRepository;
 
     @GetMapping
-    public List<Estado> findAll() {
-        return estadoRepository.findAll();
+    public ResponseEntity<List<Estado>> findAll() {
+        return ResponseEntity.ok(estadoRepository.findAll());
     }
 
     @GetMapping("/{id}")
-    public Estado findById(@PathVariable Long id) {
-        return estadoRepository.getById(id);
+    public ResponseEntity<Estado> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(estadoRepository.getById(id));
     }
+
+	@PostMapping
+	public ResponseEntity<Estado> save(@RequestBody Estado estado) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(estadoRepository.save(estado));
+	}
 }
