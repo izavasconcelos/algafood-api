@@ -2,9 +2,9 @@ package com.algafood.api.controller;
 
 import com.algafood.domain.entity.Cozinha;
 import com.algafood.domain.repository.CozinhaRepository;
+import com.algafood.domain.service.CozinhaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,9 @@ public class CozinhaController {
 
     @Autowired
     private CozinhaRepository cozinhaRepository;
+
+    @Autowired
+    private CozinhaService cozinhaService;
 
     @GetMapping
     public ResponseEntity<List<Cozinha>> findAll() {
@@ -36,7 +39,7 @@ public class CozinhaController {
 
     @PostMapping
 	public ResponseEntity<Cozinha> save(@RequestBody Cozinha cozinha) {
-    	return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaRepository.save(cozinha));
+    	return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaService.save(cozinha));
 	}
 
 	@PutMapping("/{id}")
@@ -44,7 +47,7 @@ public class CozinhaController {
     	Cozinha cozinhaAtual = cozinhaRepository.getById(id);
 		if (cozinhaAtual != null) {
 		  BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
-		  cozinhaRepository.save(cozinhaAtual);
+		  cozinhaService.save(cozinhaAtual);
 
 		  return ResponseEntity.noContent().build();
 		}
@@ -53,16 +56,8 @@ public class CozinhaController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Cozinha> delete(@PathVariable Long id) {
-		try {
-    	Cozinha cozinha = cozinhaRepository.getById(id);
-		if (cozinha != null) {
-			cozinhaRepository.delete(cozinha);
+    	cozinhaService.delete(id);
 
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.notFound().build();
-		} catch (DataIntegrityViolationException ex) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		}
+    	return ResponseEntity.noContent().build();
 	}
 }
