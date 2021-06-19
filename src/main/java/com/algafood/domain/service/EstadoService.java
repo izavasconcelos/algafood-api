@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class EstadoService {
 
@@ -20,9 +22,9 @@ public class EstadoService {
 
 	public void delete(Long id) {
 		try {
-			Estado estado = estadoRepository.getById(id);
-			if (estado != null) {
-				estadoRepository.delete(estado);
+			Optional<Estado> estado = estadoRepository.findById(id);
+			if (estado.isPresent()) {
+				estadoRepository.delete(estado.get());
 			} else {
 				throw new StateNotFoundException("Estado Não Encontrado!");
 			}

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/estados")
@@ -28,7 +29,8 @@ public class EstadoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Estado> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(estadoRepository.getById(id));
+		Optional<Estado> estado = estadoRepository.findById(id);
+        return estado.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 	@PostMapping
@@ -38,21 +40,18 @@ public class EstadoController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Estado> update(@PathVariable Long id, @RequestBody Estado estado) {
-		Estado estadoAtual = estadoRepository.getById(id);
-		if (estadoAtual != null) {
-		  BeanUtils.copyProperties(estado, estadoAtual, "id");
-		  estadoService.save(estadoAtual);
-
+		Optional<Estado> estadoAtual = estadoRepository.findById(id);
+		if (estadoAtual.isPresent()) {
+		  BeanUtils.copyProperties(estado, estadoAtual.get(), "id");
+		  estadoService.save(estadoAtual.get());
 		  return ResponseEntity.noContent().build();
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Estado> delete(@PathVariable Long id) {
     	estadoService.delete(id);
-
     	return ResponseEntity.noContent().build();
 	}
 }

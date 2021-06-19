@@ -23,12 +23,9 @@ public class CidadeService {
 	private EstadoRepository estadoRepository;
 
 	public Cidade save(Cidade cidade) {
-		Estado estado = estadoRepository.getById(cidade.getEstado().getId());
-		if(estado != null) {
-			return cidadeRepository.save(cidade);
-		} else {
-			throw new CityBadRequestException("Estado Não Existe");
-		}
+		Estado estado = estadoRepository.findById(cidade.getEstado().getId())
+				.orElseThrow(() -> new CityBadRequestException("Estado Não Existe"));
+		return cidadeRepository.save(cidade);
 	}
 
 	public void delete(Long id) {

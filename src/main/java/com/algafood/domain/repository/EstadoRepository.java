@@ -1,13 +1,10 @@
 package com.algafood.domain.repository;
 
 import com.algafood.domain.entity.Estado;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface EstadoRepository extends JpaRepository<Estado, Long> {
 
-public interface EstadoRepository {
-
-  List<Estado> findAll();
-  Estado getById(Long id);
-  Estado save(Estado estado);
-  void delete(Estado estado);
 }
