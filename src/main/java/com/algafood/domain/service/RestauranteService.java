@@ -1,6 +1,5 @@
 package com.algafood.domain.service;
 
-import com.algafood.domain.entity.Cozinha;
 import com.algafood.domain.entity.Restaurante;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.exception.RestaurantBadRequestException;
@@ -23,19 +22,16 @@ public class RestauranteService {
 	private CozinhaRepository cozinhaRepository;
 
 	public Restaurante save(Restaurante restaurante) {
-		Optional<Cozinha> cozinha = cozinhaRepository.findById(restaurante.getCozinha().getId());
-		if(cozinha.isPresent()) {
-			return restauranteRepository.save(restaurante);
-		} else {
-			throw new RestaurantBadRequestException("Cozinha Não Existe");
-		}
+		cozinhaRepository.findById(restaurante.getCozinha().getId())
+				.orElseThrow(() -> new RestaurantBadRequestException("Cozinha Não Existe"));
+		return restauranteRepository.save(restaurante);
 	}
 
 	public void delete(Long id) {
 		try {
-			Restaurante restaurante = restauranteRepository.getById(id);
-			if (restaurante != null) {
-				restauranteRepository.delete(restaurante);
+			Optional<Restaurante> restaurante = restauranteRepository.findById(id);
+			if (restaurante.isPresent()) {
+				restauranteRepository.delete(restaurante.get());
 			} else {
 				throw new RestaurantNotFoundException("Restaurante Não Encontrado!");
 			}
