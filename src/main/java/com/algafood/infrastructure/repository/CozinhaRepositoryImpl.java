@@ -3,6 +3,7 @@ package com.algafood.infrastructure.repository;
 import com.algafood.domain.entity.Cozinha;
 import com.algafood.domain.repository.CozinhaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -10,16 +11,23 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Component
+@Repository
 public class CozinhaRepositoryImpl implements CozinhaRepository {
 
-  @PersistenceContext
-  private EntityManager entityManager;
+  @PersistenceContext private EntityManager entityManager;
 
   @Override
   public List<Cozinha> findAll() {
     TypedQuery<Cozinha> query = entityManager.createQuery("from Cozinha", Cozinha.class);
-    return  query.getResultList();
+    return query.getResultList();
+  }
+
+  @Override
+  public List<Cozinha> findByName(String name) {
+    return entityManager
+        .createQuery("from Cozinha where nome = :name", Cozinha.class)
+        .setParameter("name", name)
+        .getResultList();
   }
 
   @Override

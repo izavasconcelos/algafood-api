@@ -63,5 +63,6 @@ public class Main {
     System.out.println(permissao1);
     System.out.println("\n**"+ permissaoRepository.getById(1L));
 
+    System.out.println(repository.findByName("Tailandesa"));
   }
 }
