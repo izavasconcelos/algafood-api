@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CidadeService {
 
@@ -31,9 +33,9 @@ public class CidadeService {
 
 	public void delete(Long id) {
 		try {
-			Cidade cidade = cidadeRepository.getById(id);
-			if (cidade != null) {
-				cidadeRepository.delete(cidade);
+			Optional<Cidade> cidade = cidadeRepository.findById(id);
+			if (cidade.isPresent()) {
+				cidadeRepository.delete(cidade.get());
 			} else {
 				throw new CityNotFoundException("Cidade Não Encontrada!");
 			}

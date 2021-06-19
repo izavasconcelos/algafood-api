@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cidades")
@@ -28,14 +29,10 @@ public class CidadeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Cidade> findById(@PathVariable Long id) {
+		Optional<Cidade> cidade = cidadeRepository.findById(id);
+		return cidade.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
-		Cidade cidade = cidadeRepository.getById(id);
-        if (cidade != null) {
-            return ResponseEntity.ok(cidade);
-        }
-
-        return ResponseEntity.notFound().build();
-    }
+	}
 
     @PostMapping
 	public ResponseEntity<Cidade> save(@RequestBody Cidade cidade) {
@@ -44,10 +41,10 @@ public class CidadeController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Cidade> update(@PathVariable Long id, @RequestBody Cidade cidade) {
-		Cidade cidadeAtual = cidadeRepository.getById(id);
-		if (cidadeAtual != null) {
-		  BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-			cidadeService.save(cidadeAtual);
+		Optional<Cidade> cidadeAtual = cidadeRepository.findById(id);
+		if (cidadeAtual.isPresent()) {
+		  BeanUtils.copyProperties(cidade, cidadeAtual.get(), "id");
+			cidadeService.save(cidadeAtual.get());
 
 		  return ResponseEntity.noContent().build();
 		}
