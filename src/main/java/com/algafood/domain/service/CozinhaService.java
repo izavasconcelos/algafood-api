@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CozinhaService {
 
@@ -20,9 +22,9 @@ public class CozinhaService {
 
 	public void delete(Long id) {
 		try {
-			Cozinha cozinha = cozinhaRepository.getById(id);
-			if (cozinha != null) {
-				cozinhaRepository.delete(cozinha);
+			Optional<Cozinha> cozinha = cozinhaRepository.findById(id);
+			if (cozinha.isPresent()) {
+				cozinhaRepository.delete(cozinha.get());
 			} else {
 				throw new KitchenNotFoundException("Cozinha Não Encontrada!");
 			}

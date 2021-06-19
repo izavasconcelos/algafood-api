@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RestauranteService {
 
@@ -21,8 +23,8 @@ public class RestauranteService {
 	private CozinhaRepository cozinhaRepository;
 
 	public Restaurante save(Restaurante restaurante) {
-		Cozinha cozinha = cozinhaRepository.getById(restaurante.getCozinha().getId());
-		if(cozinha != null) {
+		Optional<Cozinha> cozinha = cozinhaRepository.findById(restaurante.getCozinha().getId());
+		if(cozinha.isPresent()) {
 			return restauranteRepository.save(restaurante);
 		} else {
 			throw new RestaurantBadRequestException("Cozinha Não Existe");
