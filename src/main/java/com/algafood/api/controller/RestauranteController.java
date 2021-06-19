@@ -3,13 +3,17 @@ package com.algafood.api.controller;
 import com.algafood.domain.entity.Restaurante;
 import com.algafood.domain.repository.RestauranteRepository;
 import com.algafood.domain.service.RestauranteService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -59,5 +63,28 @@ public class RestauranteController {
 		restauranteService.delete(id);
 
     	return ResponseEntity.noContent().build();
+	}
+
+	@PatchMapping("/{id}")
+	public ResponseEntity<Restaurante> updatePart(@PathVariable Long id, @RequestBody Map<String, Object> campos) {
+		Restaurante restauranteAtual = restauranteRepository.getById(id);
+		if (restauranteAtual == null) {
+			return ResponseEntity.notFound().build();
+		}
+		merge(campos, restauranteAtual);
+
+		return update(id, restauranteAtual);
+	}
+
+	private void merge (Map<String, Object> campos, Restaurante restauranteAtual) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		Restaurante restaurante = objectMapper.convertValue(campos, Restaurante.class);
+
+    	campos.forEach((nome, valor) ->{
+			Field field = ReflectionUtils.findField(Restaurante.class, nome);
+			field.setAccessible(true);
+			Object novoValor = ReflectionUtils.getField(field, restaurante);
+			ReflectionUtils.setField(field, restauranteAtual, novoValor);
+		});
 	}
 }
