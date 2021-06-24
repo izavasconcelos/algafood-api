@@ -24,7 +24,12 @@ insert into tab_pagamentos (descricao) values ('Dinheiro');
 insert into tab_permissoes (nome, descricao) values ('CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
 insert into tab_permissoes (nome, descricao) values ('EDITAR_COZINHAS', 'Permite editar cozinhas');
 
+insert into tab_grupo (name) values ('Grupo 1');
+insert into tab_grupo (name) values ('Grupo 2');
+
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3), (4, 1), (4, 2), (5, 1), (5, 2);
+
+insert into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2);
 
 insert into tab_produtos (name, description, price, active, restaurante_id) values ('Porco com molho agridoce', 'Deliciosa carne suína ao molho especial', 78.90, 1, 1);
 insert into tab_produtos (name, description, price, active, restaurante_id) values ('Camarão tailandês', '16 camarões grandes ao molho picante', 110, 1, 1);
