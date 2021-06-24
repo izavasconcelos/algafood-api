@@ -8,12 +8,10 @@ insert into tab_cidades (nome, estado_id) values ('City 1', 1);
 insert into tab_cidades (nome, estado_id) values ('City 2', 2);
 insert into tab_cidades (nome, estado_id) values ('City 33', 1);
 
-insert into tab_restaurantes (nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values ('Thai Gourmet', 10, 1, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-insert into tab_restaurantes (nome, taxa_frete, cozinha_id)  values ('Outback', 5.00, 1);
-insert into tab_restaurantes (nome, taxa_frete, cozinha_id) values ('Petisqueira', 10.00, 1);
-insert into tab_restaurantes (nome, taxa_frete, cozinha_id) values ('Thai Gourmet', 10, 2);
-insert into tab_restaurantes (nome, taxa_frete, cozinha_id) values ('Thai Delivery', 9.50, 1);
-insert into tab_restaurantes (nome, taxa_frete, cozinha_id) values ('Tuk Tuk Comida Indiana', 15, 2);
+insert into tab_restaurantes (nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) values ('Thai Gourmet', 10, 1, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+insert into tab_restaurantes (nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) values ('Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp);
+insert into tab_restaurantes (nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) values ('Tuk Tuk Comida Indiana', 15, 2, utc_timestamp, utc_timestamp);
+
 
 insert into tab_pagamentos (descricao) values ('Cartão de crédito');
 insert into tab_pagamentos (descricao) values ('Cartão de débito');
