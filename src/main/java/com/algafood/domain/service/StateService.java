@@ -1,9 +1,9 @@
 package com.algafood.domain.service;
 
-import com.algafood.domain.entity.Estado;
+import com.algafood.domain.entity.State;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.exception.StateNotFoundException;
-import com.algafood.domain.repository.EstadoRepository;
+import com.algafood.domain.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -11,20 +11,20 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class EstadoService {
+public class StateService {
 
 	@Autowired
-	private EstadoRepository estadoRepository;
+	private StateRepository stateRepository;
 
-	public Estado save(Estado estado) {
-		return estadoRepository.save(estado);
+	public State save(State state) {
+		return stateRepository.save(state);
 	}
 
 	public void delete(Long id) {
 		try {
-			Optional<Estado> estado = estadoRepository.findById(id);
+			Optional<State> estado = stateRepository.findById(id);
 			if (estado.isPresent()) {
-				estadoRepository.delete(estado.get());
+				stateRepository.delete(estado.get());
 			} else {
 				throw new StateNotFoundException("Estado Não Encontrado!");
 			}

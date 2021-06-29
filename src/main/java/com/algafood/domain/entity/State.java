@@ -8,13 +8,13 @@ import javax.persistence.*;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tab_estados")
-public class Estado {
+@Table(name = "state")
+public class State {
 
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String nome;
+    private String name;
 }

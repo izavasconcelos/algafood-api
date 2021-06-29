@@ -1,12 +1,12 @@
 package com.algafood.domain.service;
 
 import com.algafood.domain.entity.City;
-import com.algafood.domain.entity.Estado;
+import com.algafood.domain.entity.State;
 import com.algafood.domain.exception.CityBadRequestException;
 import com.algafood.domain.exception.CityNotFoundException;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.repository.CityRepository;
-import com.algafood.domain.repository.EstadoRepository;
+import com.algafood.domain.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -20,10 +20,10 @@ public class CityService {
 	private CityRepository cityRepository;
 
 	@Autowired
-	private EstadoRepository estadoRepository;
+	private StateRepository stateRepository;
 
 	public City save(City city) {
-		Estado estado = estadoRepository.findById(city.getState().getId())
+		State state = stateRepository.findById(city.getState().getId())
 				.orElseThrow(() -> new CityBadRequestException("Estado Não Existe"));
 		return cityRepository.save(city);
 	}
