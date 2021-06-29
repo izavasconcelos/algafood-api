@@ -1,11 +1,11 @@
 package com.algafood.domain.service;
 
-import com.algafood.domain.entity.Restaurante;
+import com.algafood.domain.entity.Restaurant;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.exception.RestaurantBadRequestException;
 import com.algafood.domain.exception.RestaurantNotFoundException;
 import com.algafood.domain.repository.KitchenRepository;
-import com.algafood.domain.repository.RestauranteRepository;
+import com.algafood.domain.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -13,25 +13,25 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class RestauranteService {
+public class RestaurantService {
 
 	@Autowired
-	private RestauranteRepository restauranteRepository;
+	private RestaurantRepository restaurantRepository;
 
 	@Autowired
 	private KitchenRepository kitchenRepository;
 
-	public Restaurante save(Restaurante restaurante) {
-		kitchenRepository.findById(restaurante.getKitchen().getId())
+	public Restaurant save(Restaurant restaurant) {
+		kitchenRepository.findById(restaurant.getKitchen().getId())
 				.orElseThrow(() -> new RestaurantBadRequestException("Cozinha Não Existe"));
-		return restauranteRepository.save(restaurante);
+		return restaurantRepository.save(restaurant);
 	}
 
 	public void delete(Long id) {
 		try {
-			Optional<Restaurante> restaurante = restauranteRepository.findById(id);
+			Optional<Restaurant> restaurante = restaurantRepository.findById(id);
 			if (restaurante.isPresent()) {
-				restauranteRepository.delete(restaurante.get());
+				restaurantRepository.delete(restaurante.get());
 			} else {
 				throw new RestaurantNotFoundException("Restaurante Não Encontrado!");
 			}

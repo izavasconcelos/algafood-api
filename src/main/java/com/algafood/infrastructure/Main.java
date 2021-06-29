@@ -14,7 +14,7 @@ public class Main {
             .run(args);
 
     KitchenRepository repository = context.getBean(KitchenRepository.class);
-    RestauranteRepository restauranteRepository = context.getBean(RestauranteRepository.class);
+    RestaurantRepository restaurantRepository = context.getBean(RestaurantRepository.class);
     StateRepository stateRepository = context.getBean(StateRepository.class);
     CityRepository cityRepository = context.getBean(CityRepository.class);
     FormaPagamentoRepository formaPagamentoRepository = context.getBean(FormaPagamentoRepository.class);

@@ -15,44 +15,44 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tab_restaurantes")
-public class Restaurante {
+@Table(name = "restaurant")
+public class Restaurant {
 
   @EqualsAndHashCode.Include
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column private String nome;
+  @Column private String name;
 
-  @Column(name = "taxa_frete", nullable = false)
-  private BigDecimal taxaFrete;
+  @Column(name = "shipping_fee", nullable = false)
+  private BigDecimal shippingFee;
 
   @ManyToOne
-  @JoinColumn(name = "cozinha_id")
+  @JoinColumn(name = "kitchen_id")
   private Kitchen kitchen;
 
   @JsonIgnore
   @CreationTimestamp
-  @Column(nullable = false, columnDefinition = "datetime")
-  private LocalDateTime dataCadastro;
+  @Column(name = "created_at", nullable = false, columnDefinition = "datetime")
+  private LocalDateTime createdAt;
 
   @JsonIgnore
   @UpdateTimestamp
-  @Column(nullable = false, columnDefinition = "datetime")
-  private LocalDateTime dataAtualizacao;
+  @Column(name = "changed_at", nullable = false, columnDefinition = "datetime")
+  private LocalDateTime changedAt;
 
   @JsonIgnore @Embedded private Endereco endereco;
 
   @JsonIgnore
   @ManyToMany
   @JoinTable(
-      name = "restaurante_forma_pagamento",
-      joinColumns = @JoinColumn(name = "restaurante_id"),
-      inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
-  private List<FormaPagamento> formaPagamentos = new ArrayList<>();
+      name = "restaurant_payment_type",
+      joinColumns = @JoinColumn(name = "restaurant_id"),
+      inverseJoinColumns = @JoinColumn(name = "payment_type_id"))
+  private List<FormaPagamento> paymentType = new ArrayList<>();
 
   @JsonIgnore
-  @OneToMany(mappedBy = "restaurante")
+  @OneToMany(mappedBy = "restaurant")
   private List<Produto> produtos = new ArrayList<>();
 }
