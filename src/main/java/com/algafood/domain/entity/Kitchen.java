@@ -19,9 +19,9 @@ public class Kitchen {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private String nome;
+    private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cozinha")
+    @OneToMany(mappedBy = "kitchen")
     private List<Restaurante> restaurantes = new ArrayList<>();
 }
