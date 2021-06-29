@@ -13,8 +13,8 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tab_usuario")
-public class Usuario {
+@Table(name = "user")
+public class User {
 
 	@EqualsAndHashCode.Include
 	@Id
@@ -32,15 +32,15 @@ public class Usuario {
 
 	@JsonIgnore
 	@CreationTimestamp
-	@Column(nullable = false, columnDefinition = "datetime")
-	private LocalDateTime dataCadastro;
+	@Column(name = "created_at", nullable = false, columnDefinition = "datetime")
+	private LocalDateTime createdAt;
 
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
-			name = "usuario_grupo",
-			joinColumns = @JoinColumn(name = "usuario_id"),
-			inverseJoinColumns = @JoinColumn(name = "grupo_id"))
-	private List<Grupo> grupos = new ArrayList<>();
+			name = "user_group",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "group_id"))
+	private List<Group> groups = new ArrayList<>();
 
 }

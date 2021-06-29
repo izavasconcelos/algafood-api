@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tab_permissoes")
-public class Permissao {
+@Table(name = "permission")
+public class Permission {
 
   @EqualsAndHashCode.Include
   @Id
@@ -17,9 +17,9 @@ public class Permissao {
   private Long id;
 
   @Column(nullable = false)
-  private String nome;
+  private String name;
 
   @Column(nullable = false)
-  private String descricao;
+  private String description;
 
 }

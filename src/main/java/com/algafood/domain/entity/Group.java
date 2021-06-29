@@ -11,8 +11,8 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tab_grupo")
-public class Grupo {
+@Table(name = "group_type")
+public class Group {
 
 	@EqualsAndHashCode.Include
 	@Id
@@ -25,9 +25,9 @@ public class Grupo {
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
-			name = "grupo_permissao",
-			joinColumns = @JoinColumn(name = "grupo_id"),
-			inverseJoinColumns = @JoinColumn(name = "permissao_id"))
-	private List<Permissao> permissoes = new ArrayList<>();
+			name = "group_permission",
+			joinColumns = @JoinColumn(name = "group_id"),
+			inverseJoinColumns = @JoinColumn(name = "permission_id"))
+	private List<Permission> permissions = new ArrayList<>();
 
 }
