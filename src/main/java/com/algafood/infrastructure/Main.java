@@ -13,7 +13,7 @@ public class Main {
             .web(WebApplicationType.NONE)
             .run(args);
 
-    CozinhaRepository repository = context.getBean(CozinhaRepository.class);
+    KitchenRepository repository = context.getBean(KitchenRepository.class);
     RestauranteRepository restauranteRepository = context.getBean(RestauranteRepository.class);
     EstadoRepository estadoRepository = context.getBean(EstadoRepository.class);
     CidadeRepository cidadeRepository = context.getBean(CidadeRepository.class);

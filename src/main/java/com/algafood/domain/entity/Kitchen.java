@@ -11,8 +11,8 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tab_cozinhas")
-public class Cozinha {
+@Table(name = "kitchen")
+public class Kitchen {
 
     @EqualsAndHashCode.Include
     @Id

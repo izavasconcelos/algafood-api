@@ -1,8 +1,8 @@
 package com.algafood.api.controller;
 
-import com.algafood.domain.entity.Cozinha;
-import com.algafood.domain.repository.CozinhaRepository;
-import com.algafood.domain.service.CozinhaService;
+import com.algafood.domain.entity.Kitchen;
+import com.algafood.domain.repository.KitchenRepository;
+import com.algafood.domain.service.KitchenService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,35 +17,35 @@ import java.util.Optional;
 public class CozinhaController {
 
     @Autowired
-    private CozinhaRepository cozinhaRepository;
+    private KitchenRepository kitchenRepository;
 
     @Autowired
-    private CozinhaService cozinhaService;
+    private KitchenService kitchenService;
 
     @GetMapping
-    public ResponseEntity<List<Cozinha>> findAll() {
-        return ResponseEntity.ok(cozinhaRepository.findAll());
+    public ResponseEntity<List<Kitchen>> findAll() {
+        return ResponseEntity.ok(kitchenRepository.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cozinha> findById(@PathVariable Long id) {
+    public ResponseEntity<Kitchen> findById(@PathVariable Long id) {
 
-        Optional<Cozinha> cozinha = cozinhaRepository.findById(id);
+        Optional<Kitchen> cozinha = kitchenRepository.findById(id);
 		return cozinha.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
 	}
 
     @PostMapping
-	public ResponseEntity<Cozinha> save(@RequestBody Cozinha cozinha) {
-    	return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaService.save(cozinha));
+	public ResponseEntity<Kitchen> save(@RequestBody Kitchen kitchen) {
+    	return ResponseEntity.status(HttpStatus.CREATED).body(kitchenService.save(kitchen));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cozinha> update(@PathVariable Long id, @RequestBody Cozinha cozinha) {
-    	Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(id);
+	public ResponseEntity<Kitchen> update(@PathVariable Long id, @RequestBody Kitchen kitchen) {
+    	Optional<Kitchen> cozinhaAtual = kitchenRepository.findById(id);
 		if (cozinhaAtual.isPresent()) {
-		  BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
-		  cozinhaService.save(cozinhaAtual.get());
+		  BeanUtils.copyProperties(kitchen, cozinhaAtual.get(), "id");
+		  kitchenService.save(cozinhaAtual.get());
 
 		  return ResponseEntity.noContent().build();
 		}
@@ -53,8 +53,8 @@ public class CozinhaController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Cozinha> delete(@PathVariable Long id) {
-    	cozinhaService.delete(id);
+	public ResponseEntity<Kitchen> delete(@PathVariable Long id) {
+    	kitchenService.delete(id);
 
     	return ResponseEntity.noContent().build();
 	}

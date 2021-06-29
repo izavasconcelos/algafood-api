@@ -1,9 +1,9 @@
 package com.algafood.domain.service;
 
-import com.algafood.domain.entity.Cozinha;
+import com.algafood.domain.entity.Kitchen;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.exception.KitchenNotFoundException;
-import com.algafood.domain.repository.CozinhaRepository;
+import com.algafood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -11,20 +11,20 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CozinhaService {
+public class KitchenService {
 
 	@Autowired
-	private CozinhaRepository cozinhaRepository;
+	private KitchenRepository kitchenRepository;
 
-	public Cozinha save(Cozinha cozinha) {
-		return cozinhaRepository.save(cozinha);
+	public Kitchen save(Kitchen kitchen) {
+		return kitchenRepository.save(kitchen);
 	}
 
 	public void delete(Long id) {
 		try {
-			Optional<Cozinha> cozinha = cozinhaRepository.findById(id);
+			Optional<Kitchen> cozinha = kitchenRepository.findById(id);
 			if (cozinha.isPresent()) {
-				cozinhaRepository.delete(cozinha.get());
+				kitchenRepository.delete(cozinha.get());
 			} else {
 				throw new KitchenNotFoundException("Cozinha Não Encontrada!");
 			}

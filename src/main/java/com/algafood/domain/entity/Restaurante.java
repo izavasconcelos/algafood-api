@@ -30,7 +30,7 @@ public class Restaurante {
 
   @ManyToOne
   @JoinColumn(name = "cozinha_id")
-  private Cozinha cozinha;
+  private Kitchen kitchen;
 
   @JsonIgnore
   @CreationTimestamp

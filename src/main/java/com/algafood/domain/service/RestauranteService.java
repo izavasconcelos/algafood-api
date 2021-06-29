@@ -4,7 +4,7 @@ import com.algafood.domain.entity.Restaurante;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.exception.RestaurantBadRequestException;
 import com.algafood.domain.exception.RestaurantNotFoundException;
-import com.algafood.domain.repository.CozinhaRepository;
+import com.algafood.domain.repository.KitchenRepository;
 import com.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,10 +19,10 @@ public class RestauranteService {
 	private RestauranteRepository restauranteRepository;
 
 	@Autowired
-	private CozinhaRepository cozinhaRepository;
+	private KitchenRepository kitchenRepository;
 
 	public Restaurante save(Restaurante restaurante) {
-		cozinhaRepository.findById(restaurante.getCozinha().getId())
+		kitchenRepository.findById(restaurante.getKitchen().getId())
 				.orElseThrow(() -> new RestaurantBadRequestException("Cozinha Não Existe"));
 		return restauranteRepository.save(restaurante);
 	}
