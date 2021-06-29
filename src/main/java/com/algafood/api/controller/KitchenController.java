@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/cozinhas")
-public class CozinhaController {
+public class KitchenController {
 
     @Autowired
     private KitchenRepository kitchenRepository;
@@ -41,11 +41,11 @@ public class CozinhaController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Kitchen> update(@PathVariable Long id, @RequestBody Kitchen kitchen) {
-    	Optional<Kitchen> cozinhaAtual = kitchenRepository.findById(id);
-		if (cozinhaAtual.isPresent()) {
-		  BeanUtils.copyProperties(kitchen, cozinhaAtual.get(), "id");
-		  kitchenService.save(cozinhaAtual.get());
+	public ResponseEntity<Kitchen> update(@PathVariable Long id, @RequestBody Kitchen newKitchen) {
+    	Optional<Kitchen> kitchen = kitchenRepository.findById(id);
+		if (kitchen.isPresent()) {
+		  BeanUtils.copyProperties(newKitchen, kitchen.get(), "id");
+		  kitchenService.save(kitchen.get());
 
 		  return ResponseEntity.noContent().build();
 		}

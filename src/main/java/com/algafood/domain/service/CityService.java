@@ -25,6 +25,8 @@ public class CityService {
 	public City save(City city) {
 		State state = stateRepository.findById(city.getState().getId())
 				.orElseThrow(() -> new CityBadRequestException("Estado Não Existe"));
+		city.setState(state);
+
 		return cityRepository.save(city);
 	}
 

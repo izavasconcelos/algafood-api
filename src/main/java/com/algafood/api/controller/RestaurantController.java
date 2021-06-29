@@ -43,11 +43,11 @@ public class RestaurantController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Restaurant> update(@PathVariable Long id, @RequestBody Restaurant restaurant) {
-		Optional<Restaurant> restauranteAtual = restaurantRepository.findById(id);
-		if (restauranteAtual.isPresent()) {
-		  BeanUtils.copyProperties(restaurant, restauranteAtual.get(), "id", "formaPagamentos", "endereco", "dataCadastro", "produtos");
-			restaurantService.save(restauranteAtual.get());
+	public ResponseEntity<Restaurant> update(@PathVariable Long id, @RequestBody Restaurant newRestaurant) {
+		Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+		if (restaurant.isPresent()) {
+		  BeanUtils.copyProperties(newRestaurant, restaurant.get(), "id", "paymentType", "address", "createdAt", "products");
+			restaurantService.save(restaurant.get());
 
 		  return ResponseEntity.noContent().build();
 		}
@@ -62,24 +62,24 @@ public class RestaurantController {
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<Restaurant> updatePart(@PathVariable Long id, @RequestBody Map<String, Object> campos) {
-		Optional<Restaurant> restauranteAtual = restaurantRepository.findById(id);
-		if (restauranteAtual.isEmpty()) {
+	public ResponseEntity<Restaurant> updatePart(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+		Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+		if (restaurant.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		merge(campos, restauranteAtual.get());
-		return update(id, restauranteAtual.get());
+		merge(fields, restaurant.get());
+		return update(id, restaurant.get());
 	}
 
-	private void merge (Map<String, Object> campos, Restaurant restaurantAtual) {
+	private void merge (Map<String, Object> restaurantFields, Restaurant restaurant) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		Restaurant restaurant = objectMapper.convertValue(campos, Restaurant.class);
+		Restaurant newRestaurant = objectMapper.convertValue(restaurantFields, Restaurant.class);
 
-    	campos.forEach((nome, valor) ->{
+    	restaurantFields.forEach((nome, valor) ->{
 			Field field = ReflectionUtils.findField(Restaurant.class, nome);
 			field.setAccessible(true);
-			Object novoValor = ReflectionUtils.getField(field, restaurant);
-			ReflectionUtils.setField(field, restaurantAtual, novoValor);
+			Object novoValor = ReflectionUtils.getField(field, newRestaurant);
+			ReflectionUtils.setField(field, restaurant, novoValor);
 		});
 	}
 }
