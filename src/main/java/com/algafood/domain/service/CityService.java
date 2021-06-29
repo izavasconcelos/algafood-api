@@ -1,11 +1,11 @@
 package com.algafood.domain.service;
 
-import com.algafood.domain.entity.Cidade;
+import com.algafood.domain.entity.City;
 import com.algafood.domain.entity.Estado;
 import com.algafood.domain.exception.CityBadRequestException;
 import com.algafood.domain.exception.CityNotFoundException;
 import com.algafood.domain.exception.EntityUsedException;
-import com.algafood.domain.repository.CidadeRepository;
+import com.algafood.domain.repository.CityRepository;
 import com.algafood.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,25 +14,25 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CidadeService {
+public class CityService {
 
 	@Autowired
-	private CidadeRepository cidadeRepository;
+	private CityRepository cityRepository;
 
 	@Autowired
 	private EstadoRepository estadoRepository;
 
-	public Cidade save(Cidade cidade) {
-		Estado estado = estadoRepository.findById(cidade.getEstado().getId())
+	public City save(City city) {
+		Estado estado = estadoRepository.findById(city.getState().getId())
 				.orElseThrow(() -> new CityBadRequestException("Estado Não Existe"));
-		return cidadeRepository.save(cidade);
+		return cityRepository.save(city);
 	}
 
 	public void delete(Long id) {
 		try {
-			Optional<Cidade> cidade = cidadeRepository.findById(id);
+			Optional<City> cidade = cityRepository.findById(id);
 			if (cidade.isPresent()) {
-				cidadeRepository.delete(cidade.get());
+				cityRepository.delete(cidade.get());
 			} else {
 				throw new CityNotFoundException("Cidade Não Encontrada!");
 			}

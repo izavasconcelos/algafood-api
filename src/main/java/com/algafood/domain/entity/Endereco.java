@@ -28,5 +28,5 @@ public class Endereco {
 
 	@ManyToOne
 	@JoinColumn(name = "endereco_cidade_id")
-	private Cidade cidade;
+	private City city;
 }

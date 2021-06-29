@@ -8,17 +8,17 @@ import javax.persistence.*;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tab_cidades")
-public class Cidade {
+@Table(name = "city")
+public class City {
 
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String nome;
+    private String name;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Estado estado;
+    private Estado state;
 }
