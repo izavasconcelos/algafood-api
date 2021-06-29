@@ -42,7 +42,7 @@ public class Restaurant {
   @Column(name = "changed_at", nullable = false, columnDefinition = "datetime")
   private LocalDateTime changedAt;
 
-  @JsonIgnore @Embedded private Endereco endereco;
+  @JsonIgnore @Embedded private Address address;
 
   @JsonIgnore
   @ManyToMany
