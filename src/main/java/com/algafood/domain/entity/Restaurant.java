@@ -50,7 +50,7 @@ public class Restaurant {
       name = "restaurant_payment_type",
       joinColumns = @JoinColumn(name = "restaurant_id"),
       inverseJoinColumns = @JoinColumn(name = "payment_type_id"))
-  private List<FormaPagamento> paymentType = new ArrayList<>();
+  private List<PaymentType> paymentType = new ArrayList<>();
 
   @JsonIgnore
   @OneToMany(mappedBy = "restaurant")

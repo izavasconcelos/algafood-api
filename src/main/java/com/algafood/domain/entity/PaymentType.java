@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "tab_pagamentos")
-public class FormaPagamento {
+public class PaymentType {
 
     @EqualsAndHashCode.Include
     @Id
