@@ -1,17 +1,16 @@
 package com.algafood.domain.kitchen.service.impl;
 
+import com.algafood.domain.kitchen.entity.Kitchen;
+import com.algafood.domain.kitchen.repository.KitchenRepository;
+import com.algafood.domain.kitchen.service.KitchenService;
 import com.algafood.infrastructure.common.exception.EntityUsedException;
 import com.algafood.infrastructure.common.exception.KitchenNotFoundException;
-import com.algafood.domain.kitchen.entity.Kitchen;
-import com.algafood.domain.kitchen.service.KitchenService;
-import com.algafood.domain.kitchen.repository.KitchenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,6 @@ public class KitchenServiceImpl implements KitchenService {
 
 	@Override
 	public Kitchen createKitchen(final Kitchen kitchen) {
-
 		if(kitchenRepository.existsByName(kitchen.getName())) {
 			throw new EntityUsedException("Kitchen Already Exists");
 		}
@@ -30,13 +28,12 @@ public class KitchenServiceImpl implements KitchenService {
 
 	@Override
 	public Kitchen findById(final Long id) {
-		return kitchenRepository.findById(id).orElseThrow(() -> new KitchenNotFoundException("Kitchen not found"));
+		return findKitchen(id);
 	}
 
 	@Override
 	public void update(final Long id, final Kitchen newKitchen) {
-		Kitchen kitchen = kitchenRepository.findById(id)
-				.orElseThrow(() -> new KitchenNotFoundException("Kitchen not found"));
+		Kitchen kitchen = findKitchen(id);
 
 		BeanUtils.copyProperties(newKitchen, kitchen, "id");
 		kitchenRepository.save(kitchen);
@@ -50,14 +47,15 @@ public class KitchenServiceImpl implements KitchenService {
 	@Override
 	public void delete(final Long id) {
 		try {
-			Optional<Kitchen> cozinha = kitchenRepository.findById(id);
-			if (cozinha.isPresent()) {
-				kitchenRepository.delete(cozinha.get());
-			} else {
-				throw new KitchenNotFoundException("Cozinha Não Encontrada!");
-			}
+			Kitchen kitchen = findKitchen(id);
+			kitchenRepository.delete(kitchen);
 		} catch (DataIntegrityViolationException ex) {
 			throw new EntityUsedException(String.format("Entidade Id=%d em uso!", id));
 		}
+	}
+
+	private Kitchen findKitchen(final Long id) {
+		return kitchenRepository.findById(id)
+				.orElseThrow(() -> new KitchenNotFoundException("Kitchen not found"));
 	}
 }
