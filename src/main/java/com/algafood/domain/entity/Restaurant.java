@@ -1,5 +1,6 @@
 package com.algafood.domain.entity;
 
+import com.algafood.domain.kitchen.entity.Kitchen;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

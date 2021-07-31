@@ -1,6 +1,6 @@
 package com.algafood.domain.service;
 
-import com.algafood.domain.entity.Kitchen;
+import com.algafood.domain.kitchen.entity.Kitchen;
 import com.algafood.domain.entity.Restaurant;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.exception.RestaurantBadRequestException;
