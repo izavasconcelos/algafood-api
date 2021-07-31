@@ -23,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/estados")
 public class StateController {
-
+	
     private final StateRepository stateRepository;
 
 	private final StateService stateService;
@@ -46,10 +46,10 @@ public class StateController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<State> update(@PathVariable Long id, @RequestBody State state) {
-		Optional<State> estadoAtual = stateRepository.findById(id);
-		if (estadoAtual.isPresent()) {
-		  BeanUtils.copyProperties(state, estadoAtual.get(), "id");
-		  stateService.save(estadoAtual.get());
+		Optional<State> stateNow = stateRepository.findById(id);
+		if (stateNow.isPresent()) {
+		  BeanUtils.copyProperties(state, stateNow.get(), "id");
+		  stateService.save(stateNow.get());
 		  return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
