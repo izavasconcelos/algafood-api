@@ -1,8 +1,8 @@
-package com.algafood.api.controller;
+package com.algafood.domain.state.api.v1;
 
-import com.algafood.domain.entity.State;
-import com.algafood.domain.repository.StateRepository;
-import com.algafood.domain.service.StateService;
+import com.algafood.domain.state.entity.State;
+import com.algafood.domain.state.repository.StateRepository;
+import com.algafood.domain.state.service.impl.StateServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class StateController {
 	
     private final StateRepository stateRepository;
 
-	private final StateService stateService;
+	private final StateServiceImpl stateService;
 
     @GetMapping
     public ResponseEntity<List<State>> findAll() {

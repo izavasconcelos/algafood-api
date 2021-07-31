@@ -1,9 +1,9 @@
-package com.algafood.domain.service;
+package com.algafood.domain.state.service.impl;
 
-import com.algafood.domain.entity.State;
-import com.algafood.domain.exception.EntityUsedException;
-import com.algafood.domain.exception.StateNotFoundException;
-import com.algafood.domain.repository.StateRepository;
+import com.algafood.domain.state.entity.State;
+import com.algafood.infrastructure.common.exception.EntityUsedException;
+import com.algafood.infrastructure.common.exception.StateNotFoundException;
+import com.algafood.domain.state.repository.StateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class StateService {
+public class StateServiceImpl {
 
 	private final StateRepository stateRepository;
 

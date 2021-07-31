@@ -1,6 +1,6 @@
-package com.algafood.domain.repository;
+package com.algafood.domain.state.repository;
 
-import com.algafood.domain.entity.State;
+import com.algafood.domain.state.entity.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

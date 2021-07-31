@@ -1,7 +1,11 @@
 package com.algafood.infrastructure;
 
 import com.algafood.AlgafoodApplication;
+import com.algafood.domain.city.repository.CityRepository;
+import com.algafood.domain.kitchen.repository.KitchenRepository;
 import com.algafood.domain.repository.*;
+import com.algafood.domain.restaurant.repository.RestaurantRepository;
+import com.algafood.domain.state.repository.StateRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
