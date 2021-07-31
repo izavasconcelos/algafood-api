@@ -7,20 +7,19 @@ import com.algafood.domain.exception.CityNotFoundException;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.repository.CityRepository;
 import com.algafood.domain.repository.StateRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CityService {
 
-	@Autowired
-	private CityRepository cityRepository;
+	private final CityRepository cityRepository;
 
-	@Autowired
-	private StateRepository stateRepository;
+	private final StateRepository stateRepository;
 
 	public City save(City city) {
 		State state = stateRepository.findById(city.getState().getId())

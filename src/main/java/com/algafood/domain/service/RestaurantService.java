@@ -7,20 +7,19 @@ import com.algafood.domain.exception.RestaurantBadRequestException;
 import com.algafood.domain.exception.RestaurantNotFoundException;
 import com.algafood.domain.repository.KitchenRepository;
 import com.algafood.domain.repository.RestaurantRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RestaurantService {
 
-	@Autowired
-	private RestaurantRepository restaurantRepository;
+	private final RestaurantRepository restaurantRepository;
 
-	@Autowired
-	private KitchenRepository kitchenRepository;
+	private final KitchenRepository kitchenRepository;
 
 	public Restaurant save(Restaurant restaurant) {
 		Kitchen kitchen = kitchenRepository.findById(restaurant.getKitchen().getId())

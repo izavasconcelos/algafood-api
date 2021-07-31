@@ -4,17 +4,17 @@ import com.algafood.domain.entity.Kitchen;
 import com.algafood.domain.exception.EntityUsedException;
 import com.algafood.domain.exception.KitchenNotFoundException;
 import com.algafood.domain.repository.KitchenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class KitchenService {
 
-	@Autowired
-	private KitchenRepository kitchenRepository;
+	private final KitchenRepository kitchenRepository;
 
 	public Kitchen save(Kitchen kitchen) {
 		return kitchenRepository.save(kitchen);
