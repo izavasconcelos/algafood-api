@@ -1,6 +1,6 @@
-package com.algafood.domain.repository;
+package com.algafood.domain.city.repository;
 
-import com.algafood.domain.entity.City;
+import com.algafood.domain.city.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

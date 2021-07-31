@@ -1,8 +1,8 @@
-package com.algafood.api.controller;
+package com.algafood.domain.city.api.v1;
 
-import com.algafood.domain.entity.City;
-import com.algafood.domain.repository.CityRepository;
-import com.algafood.domain.service.CityService;
+import com.algafood.domain.city.entity.City;
+import com.algafood.domain.city.repository.CityRepository;
+import com.algafood.domain.city.service.impl.CityServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class CityController {
 
     private final CityRepository cityRepository;
 
-    private final CityService cityService;
+    private final CityServiceImpl cityService;
 
     @GetMapping
     public ResponseEntity<List<City>> findAll() {

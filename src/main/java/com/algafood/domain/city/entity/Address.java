@@ -1,4 +1,4 @@
-package com.algafood.domain.entity;
+package com.algafood.domain.city.entity;
 
 import lombok.Data;
 

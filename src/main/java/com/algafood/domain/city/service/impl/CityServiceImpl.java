@@ -1,12 +1,12 @@
-package com.algafood.domain.service;
+package com.algafood.domain.city.service.impl;
 
-import com.algafood.domain.entity.City;
-import com.algafood.domain.entity.State;
-import com.algafood.domain.exception.CityBadRequestException;
-import com.algafood.domain.exception.CityNotFoundException;
-import com.algafood.domain.exception.EntityUsedException;
-import com.algafood.domain.repository.CityRepository;
-import com.algafood.domain.repository.StateRepository;
+import com.algafood.domain.city.entity.City;
+import com.algafood.domain.state.entity.State;
+import com.algafood.infrastructure.common.exception.CityBadRequestException;
+import com.algafood.infrastructure.common.exception.CityNotFoundException;
+import com.algafood.infrastructure.common.exception.EntityUsedException;
+import com.algafood.domain.city.repository.CityRepository;
+import com.algafood.domain.state.repository.StateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CityService {
+public class CityServiceImpl {
 
 	private final CityRepository cityRepository;
 
