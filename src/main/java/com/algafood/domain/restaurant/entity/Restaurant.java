@@ -1,5 +1,7 @@
-package com.algafood.domain.entity;
+package com.algafood.domain.restaurant.entity;
 
+import com.algafood.domain.city.entity.Address;
+import com.algafood.domain.entity.PaymentType;
 import com.algafood.domain.kitchen.entity.Kitchen;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

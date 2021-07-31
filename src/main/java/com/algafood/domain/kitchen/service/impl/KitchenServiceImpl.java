@@ -1,10 +1,10 @@
 package com.algafood.domain.kitchen.service.impl;
 
-import com.algafood.domain.exception.EntityUsedException;
-import com.algafood.domain.exception.KitchenNotFoundException;
+import com.algafood.infrastructure.common.exception.EntityUsedException;
+import com.algafood.infrastructure.common.exception.KitchenNotFoundException;
 import com.algafood.domain.kitchen.entity.Kitchen;
 import com.algafood.domain.kitchen.service.KitchenService;
-import com.algafood.domain.repository.KitchenRepository;
+import com.algafood.domain.kitchen.repository.KitchenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;

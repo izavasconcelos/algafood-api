@@ -1,8 +1,8 @@
-package com.algafood.api.controller;
+package com.algafood.domain.restaurant.api.v1;
 
-import com.algafood.domain.entity.Restaurant;
-import com.algafood.domain.repository.RestaurantRepository;
-import com.algafood.domain.service.RestaurantService;
+import com.algafood.domain.restaurant.entity.Restaurant;
+import com.algafood.domain.restaurant.repository.RestaurantRepository;
+import com.algafood.domain.restaurant.service.impl.RestaurantServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -31,7 +31,7 @@ public class RestaurantController {
 
     private final RestaurantRepository restaurantRepository;
 
-    private final RestaurantService restaurantService;
+    private final RestaurantServiceImpl restaurantService;
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> findAll() {

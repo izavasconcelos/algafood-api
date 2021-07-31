@@ -1,12 +1,12 @@
-package com.algafood.domain.service;
+package com.algafood.domain.restaurant.service.impl;
 
 import com.algafood.domain.kitchen.entity.Kitchen;
-import com.algafood.domain.entity.Restaurant;
-import com.algafood.domain.exception.EntityUsedException;
-import com.algafood.domain.exception.RestaurantBadRequestException;
-import com.algafood.domain.exception.RestaurantNotFoundException;
-import com.algafood.domain.repository.KitchenRepository;
-import com.algafood.domain.repository.RestaurantRepository;
+import com.algafood.domain.restaurant.entity.Restaurant;
+import com.algafood.infrastructure.common.exception.EntityUsedException;
+import com.algafood.infrastructure.common.exception.RestaurantBadRequestException;
+import com.algafood.infrastructure.common.exception.RestaurantNotFoundException;
+import com.algafood.domain.kitchen.repository.KitchenRepository;
+import com.algafood.domain.restaurant.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RestaurantService {
+public class RestaurantServiceImpl {
 
 	private final RestaurantRepository restaurantRepository;
 

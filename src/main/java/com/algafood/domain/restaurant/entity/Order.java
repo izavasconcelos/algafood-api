@@ -1,5 +1,9 @@
-package com.algafood.domain.entity;
+package com.algafood.domain.restaurant.entity;
 
+import com.algafood.domain.city.entity.Address;
+import com.algafood.domain.entity.PaymentType;
+import com.algafood.domain.state.enums.StatusOrder;
+import com.algafood.domain.entity.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
