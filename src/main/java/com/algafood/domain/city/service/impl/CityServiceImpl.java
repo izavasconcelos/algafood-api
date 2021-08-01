@@ -4,8 +4,7 @@ import com.algafood.domain.city.entity.City;
 import com.algafood.domain.city.repository.CityRepository;
 import com.algafood.domain.city.service.CityService;
 import com.algafood.domain.state.entity.State;
-import com.algafood.domain.state.repository.StateRepository;
-import com.algafood.infrastructure.common.exception.CityBadRequestException;
+import com.algafood.domain.state.service.StateService;
 import com.algafood.infrastructure.common.exception.CityNotFoundException;
 import com.algafood.infrastructure.common.exception.EntityUsedException;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +20,16 @@ public class CityServiceImpl implements CityService {
 
 	private final CityRepository cityRepository;
 
-	private final StateRepository stateRepository;
+	private final StateService stateService;
 
 	@Override
 	public City createCity(City city) {
-		State state = stateRepository.findById(city.getState().getId())
-				.orElseThrow(() -> new CityBadRequestException("State Not Exists"));
+		State state = stateService.findById(city.getState().getId());
+
+		if(cityRepository.existsByNameAndStateId(city.getName(), city.getState().getId())) {
+			throw new EntityUsedException("City Already Exists");
+		}
+
 		city.setState(state);
 
 		return cityRepository.save(city);
