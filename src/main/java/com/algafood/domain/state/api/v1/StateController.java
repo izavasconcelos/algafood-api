@@ -1,10 +1,8 @@
 package com.algafood.domain.state.api.v1;
 
 import com.algafood.domain.state.entity.State;
-import com.algafood.domain.state.repository.StateRepository;
 import com.algafood.domain.state.service.impl.StateServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,47 +15,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/estados")
 public class StateController {
-	
-    private final StateRepository stateRepository;
 
 	private final StateServiceImpl stateService;
 
-    @GetMapping
-    public ResponseEntity<List<State>> findAll() {
-        return ResponseEntity.ok(stateRepository.findAll());
-    }
+	@GetMapping
+	public ResponseEntity<List<State>> findAll() {
+		return ResponseEntity.ok(stateService.findAll());
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<State> findById(@PathVariable Long id) {
-		Optional<State> estado = stateRepository.findById(id);
-        return estado.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<State> findById(@PathVariable Long id) {
+
+		return ResponseEntity.ok(stateService.findById(id));
+	}
 
 	@PostMapping
-	public ResponseEntity<State> save(@RequestBody State state) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(stateService.save(state));
+	public ResponseEntity<State> create(@RequestBody State state) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(stateService.createState(state));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<State> update(@PathVariable Long id, @RequestBody State state) {
-		Optional<State> stateNow = stateRepository.findById(id);
-		if (stateNow.isPresent()) {
-		  BeanUtils.copyProperties(state, stateNow.get(), "id");
-		  stateService.save(stateNow.get());
-		  return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.notFound().build();
+		stateService.update(id, state);
+
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<State> delete(@PathVariable Long id) {
-    	stateService.delete(id);
-    	return ResponseEntity.noContent().build();
+		stateService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }
