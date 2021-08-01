@@ -30,6 +30,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public Restaurant createRestaurant(final Restaurant restaurant) {
 		Kitchen kitchen = kitchenService.findById(restaurant.getKitchen().getId());
 
+		if(restaurantRepository.existsByNameAndKitchenId(restaurant.getName(), restaurant.getKitchen().getId())) {
+			throw new EntityUsedException("Restaurant Already Exists");
+		}
 		restaurant.setKitchen(kitchen);
 
 		return restaurantRepository.save(restaurant);
