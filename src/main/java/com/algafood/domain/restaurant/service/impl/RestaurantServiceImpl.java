@@ -5,7 +5,9 @@ import com.algafood.domain.kitchen.service.KitchenService;
 import com.algafood.domain.restaurant.entity.Restaurant;
 import com.algafood.domain.restaurant.repository.RestaurantRepository;
 import com.algafood.domain.restaurant.service.RestaurantService;
+import com.algafood.infrastructure.common.exception.BusinessException;
 import com.algafood.infrastructure.common.exception.EntityUsedException;
+import com.algafood.infrastructure.common.exception.KitchenNotFoundException;
 import com.algafood.infrastructure.common.exception.RestaurantNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +30,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Override
 	public Restaurant createRestaurant(final Restaurant restaurant) {
-		Kitchen kitchen = kitchenService.findById(restaurant.getKitchen().getId());
+		Kitchen kitchen;
 
+		try {
+			kitchen = kitchenService.findById(restaurant.getKitchen().getId());
+		} catch (KitchenNotFoundException e) {
+			throw new BusinessException(e.getMessage());
+		}
 		if(restaurantRepository.existsByNameAndKitchenId(restaurant.getName(), restaurant.getKitchen().getId())) {
 			throw new EntityUsedException("Restaurant Already Exists");
 		}
@@ -53,7 +60,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		Restaurant restaurant = findRestaurant(id);
 
 		BeanUtils.copyProperties(newRestaurant, restaurant, "id", "paymentType", "address", "createdAt", "products");
-		restaurantRepository.save(restaurant);
+		createRestaurant(restaurant);
 	}
 
 	@Override

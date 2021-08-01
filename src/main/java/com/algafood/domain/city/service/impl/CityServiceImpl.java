@@ -5,8 +5,10 @@ import com.algafood.domain.city.repository.CityRepository;
 import com.algafood.domain.city.service.CityService;
 import com.algafood.domain.state.entity.State;
 import com.algafood.domain.state.service.StateService;
+import com.algafood.infrastructure.common.exception.BusinessException;
 import com.algafood.infrastructure.common.exception.CityNotFoundException;
 import com.algafood.infrastructure.common.exception.EntityUsedException;
+import com.algafood.infrastructure.common.exception.StateNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,8 +26,12 @@ public class CityServiceImpl implements CityService {
 
 	@Override
 	public City createCity(City city) {
-		State state = stateService.findById(city.getState().getId());
-
+		State state;
+		try {
+			state = stateService.findById(city.getState().getId());
+		} catch (StateNotFoundException e) {
+			throw new BusinessException(e.getMessage());
+		}
 		if(cityRepository.existsByNameAndStateId(city.getName(), city.getState().getId())) {
 			throw new EntityUsedException("City Already Exists");
 		}
@@ -50,7 +56,7 @@ public class CityServiceImpl implements CityService {
 		City city = findCity(id);
 
 		BeanUtils.copyProperties(newCity, city, "id");
-		cityRepository.save(city);
+		createCity(city);
 	}
 
 	@Override
