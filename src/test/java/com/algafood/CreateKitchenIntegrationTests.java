@@ -34,7 +34,7 @@ class CreateKitchenIntegrationTests {
     }
 
     @Test
-    void shouldNotCreateKitchenWhenNameExists() {
+    void shouldReturnEntityUsedExceptionWhenNameExists() {
         // cenário
         Kitchen newKitchen = new Kitchen();
         newKitchen.setName("nova cozinha");
